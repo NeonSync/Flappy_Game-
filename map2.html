@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Danger Zone Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    #map { height: 100vh; width: 100vw; }
+    .popup-title { font-weight: bold; font-size: 1.1em; }
+    .popup-details { font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize the map centered on India-Pakistan region
+    const map = L.map('map').setView([30.3753, 69.3451], 5);
+
+    // Tile Layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Example API URL (replace with real API endpoint)
+    const apiUrl = '563f67c4ae0841ccaad5fb9b999698a5'; // Replace with actual API
+
+    // Fetch the data from the API (mocked for this example)
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Assuming the API returns an array of zones with coordinates, names, and descriptions
+        const zones = data.zones;
+
+        // Loop through each zone and add red markers dynamically
+        zones.forEach(zone => {
+          L.marker([zone.latitude, zone.longitude], {
+            icon: L.icon({
+              iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Red_Circle.png/500px-Red_Circle.png',
+              iconSize: [20, 20]
+            })
+          })
+          .addTo(map)
+          .bindPopup(`<div class="popup-title">${zone.name}</div><div class="popup-details">${zone.description}</div>`);
+        });
+      })
+      .catch(error => console.error('Error fetching conflict zones:', error));
+
+  </script>
+</body>
+</html>
