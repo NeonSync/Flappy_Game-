@@ -11,7 +11,7 @@ A fun twist on the classic Flappy Bird game — in this version, you control a f
 
 ## 🛠️ Technologies Used
 
-- Python (Pygame) 
-- libraries(asyncio, platform, random)
+- Language(Python)
+- libraries(pygame, asyncio, platform, random)
 
  
