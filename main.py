@@ -14,13 +14,13 @@ except Exception as e:
 WIDTH, HEIGHT = 400, 600
 try:
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Made By RSR")
+    pygame.display.set_caption("Made By ROHIT")
 except Exception as e:
     print(f"Display setup failed: {e}")
     raise
 
 # Colors
-BIRD_COLOR = (255, 0, 0)        # Red
+BIRD_COLOR = (0, 0, 255)        # Blue 
 PIPE_COLOR = (0, 128, 0)        # Dark Green
 TEXT_COLOR = (255, 255, 255)    # White
 BG_COLOR = (135, 206, 250)      # Sky Blue
@@ -117,9 +117,13 @@ def update_loop():
             pygame.quit()
             return
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP and not game_over and countdown is None:
+            if event.key == pygame.K_SPACE and not game_over and countdown is  None:
                 bird_velocity = flap_strength
             if event.key == pygame.K_SPACE and game_over:
+                setup()
+            if event.key == pygame.K_UP and not game_over and countdown is  None:
+                bird_velocity = flap_strength
+            if event.key == pygame.K_UP and game_over:
                 setup()
 
     # Draw
